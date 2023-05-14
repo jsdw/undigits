@@ -37,15 +37,49 @@ export function solve(numbers: number[], target: number): Value | undefined {
 }
 
 export function toString(value: Value): string {
-  function toS(value: Value): string {
-    if (typeof value === 'number') {
-      return value.toString()
-    }
-    let op = value.op;
-    return "(" + toS(value.left) + " " + op + " " + toS(value.right) + ")"
+  if (typeof value === 'number') {
+    return value.toString()
   }
-  let s = toS(value);
-  return s.slice(1, s.length - 1);
+
+  function rightNeedsBrackets(value: Value) {
+    return needsBrackets(value, (v) => v.right);
+  }
+  function leftNeedsBrackets(value: Value) {
+    return needsBrackets(value, (v) => v.left);
+  }
+  function needsBrackets(value: Value, k: (v: {left: Value, right: Value}) => Value) {
+    if (typeof value === 'number') {
+      return false
+    }
+    let otherValue = k(value);
+    if (typeof otherValue === 'number') {
+      return false
+    }
+
+    let otherOp = otherValue.op;
+    let thisOp = value.op;
+
+    if (prec(otherOp) === prec(thisOp)) {
+      return false
+    }
+    return true
+  }
+  function prec(op: Op) {
+    if (op == Op.Add || op == Op.Minus) {
+      return 2
+    }
+    return 1
+  }
+
+  let op = value.op;
+  let leftS = leftNeedsBrackets(value)
+    ? "("+toString(value.left)+")"
+    : toString(value.left);
+  let rightS = rightNeedsBrackets(value)
+    ? "("+toString(value.right)+")"
+    : toString(value.right);
+
+  return leftS + " " + op + " " + rightS;
 }
 
 type Value = number | {
@@ -144,16 +178,14 @@ function canDivide(left: Value, right: Value): boolean {
 function numberOfOps(value: Value): number {
   if (typeof value === 'number') {
     return 0
-  } else {
-    return value.__opCount
   }
+  return value.__opCount
 }
 function calc(value: Value): number {
   if (typeof value === "number") {
     return value
-  } else {
-    return value.__calc
   }
+  return value.__calc
 }
 
 enum Op {

@@ -16,9 +16,15 @@ export const NumberInput: Component<NumberInputProps> = (props) => {
     return digitIsValid(props.value) ? true : false
   });
 
-  let onInput = (e: InputEvent | undefined) => {
-    if (!e) { return }
+  function onClick(e: MouseEvent) {
+    try {
+      (e.target as any).select();
+    } catch(e) {
+      console.warn("cannot .select() input");
+    }
+  }
 
+  function onInput(e: InputEvent) {
     if (typeof props.maxLength !== 'undefined') {
         let v = (e.target as any).value;
         if (v.length > props.maxLength) {
@@ -41,6 +47,7 @@ export const NumberInput: Component<NumberInputProps> = (props) => {
         class={`${styles.input} ${props.class} ${isValid() ? '' : props.invalidClass}`}
         value={props.value || ''}
         onInput={onInput}
+        onClick={onClick}
         type="number"
       />
   )

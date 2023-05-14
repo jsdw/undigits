@@ -1,4 +1,4 @@
-import { Component, createSignal, createComputed, JSX, createMemo } from 'solid-js';
+import { Component, createSignal, createEffect, createMemo } from 'solid-js';
 import { Digit } from './Digit';
 import { NumberInput } from './NumberInput';
 import * as solver from '../solver';
