@@ -1,0 +1,97 @@
+.outer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.inner {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  height: 45px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--divider-color);
+  font-size: 20px;
+}
+
+.main {
+  flex-grow: 1;
+}
+
+.infoText {
+  text-align: center;
+  margin: 15px;
+  font-size: 14px;
+}
+
+.target {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px;
+}
+
+.targetInputInvalid{
+  color: red;
+}
+
+.targetInput {
+  border: 0;
+  font-size:56px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.targetInvalid {
+
+}
+
+.digits {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.digits > * {
+  margin: 4px;
+}
+
+.solve {
+  margin-top: 35px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.solve > button {
+  background-color: var(--solve-color);
+  color: var(--background-color);
+  font-weight: bold;
+  font-size: 26px;
+  padding: 8px 18px;
+  border: 0;
+  border-radius: 22px;
+  cursor: pointer;
+}
+
+.solve > button:disabled {
+  cursor: default;
+  background-color: var(--disabled-color);
+}
+
+.solution {
+  text-align: center;
+  margin-top: 35px;
+  font-size: 20px;
+}
+
+.emptySolution {
+  display: none;
+}

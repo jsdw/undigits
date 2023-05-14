@@ -1,0 +1,26 @@
+.digit {
+  height: 85px;
+  width: 85px;
+  border-radius: 50% 50%;
+  border: 3px dashed var(--digit-border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input {
+  width: 94px;
+  height: 100%;
+  border: 0;
+  font-size:32px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.invalid {
+    border-color: var(--invalid-color);
+}
+
+.inputInvalid {
+  color: var(--invalid-color);
+}

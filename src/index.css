@@ -1,0 +1,20 @@
+:root {
+  --background-color: #fff;
+  --divider-color: #c7c7c7;
+  --digit-border-color: black;
+  --invalid-color: red;
+  --solve-color: green;
+  --disabled-color: lightgrey;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  touch-action: pan-y;
+  overflow-wrap: break-word;
+}
+
+* {
+  box-sizing: border-box;
+}
