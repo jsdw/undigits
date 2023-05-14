@@ -6,7 +6,7 @@
 
 .inner {
   width: 100%;
-  max-width: 700px;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
 }
@@ -35,7 +35,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 30px;
+  margin: 20px;
 }
 
 .targetInputInvalid{
@@ -49,10 +49,6 @@
   text-align: center;
 }
 
-.targetInvalid {
-
-}
-
 .digits {
   display: flex;
   justify-content: center;
@@ -64,8 +60,7 @@
 }
 
 .solve {
-  margin-top: 35px;
-  margin-bottom: 15px;
+  margin: 30px;
   display: flex;
   justify-content: center;
 }
@@ -88,10 +83,33 @@
 
 .solution {
   text-align: center;
-  margin-top: 35px;
   font-size: 20px;
+  background-color: var(--solve-color);
+  margin: 15px;
+  margin-top: 35px;
+  color: white;
+  border-radius: 5px;
 }
 
-.emptySolution {
+.solutionHidden {
   display: none;
+}
+
+.solutionNotFound {
+  background-color: var(--invalid-color);
+}
+
+.solutionHeader {
+  background-color: rgba(0,0,0,0.23);
+  padding: 6px;
+  font-weight: bold;
+  border-bottom: 2px solid rgba(0,0,0,0.1);
+  font-size: 16px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.solutionBody {
+  padding: 10px;
+  font-weight: bold;
 }

@@ -3,6 +3,7 @@
   background-color: transparent;
   outline: none;
   width: 100%;
+  padding: 0;
   /* csslint ignore:start */
   -webkit-appearance: none;
   -moz-appearance: textfield;

@@ -13,6 +13,7 @@ body {
   background-color: var(--background-color);
   touch-action: pan-y;
   overflow-wrap: break-word;
+  font-family: sans-serif;
 }
 
 * {

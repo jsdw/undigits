@@ -1,4 +1,4 @@
-import { Component, createSignal, createEffect, createMemo } from 'solid-js';
+import { Component, createSignal, createMemo, Show } from 'solid-js';
 import { Digit } from './Digit';
 import { NumberInput } from './NumberInput';
 import * as solver from '../solver';
@@ -16,6 +16,7 @@ export const App: Component = () => {
   let [target, setTarget] = createSignal<number | undefined>(55);
 
   let [solutionText, setSolutionText] = createSignal<string | undefined>(undefined);
+  let [solutionFound, setSolutionFound] = createSignal(false);
 
   let isValid = (n: number | undefined) => {
     return typeof n === 'number'
@@ -36,6 +37,7 @@ export const App: Component = () => {
       return
     }
 
+    setSolutionFound(true);
     setSolutionText('Solving...');
 
     setTimeout(() => {
@@ -45,9 +47,9 @@ export const App: Component = () => {
       );
 
       if (solution) {
-        setSolutionText(`The solution is: ${solver.toString(solution)}`);
+        setSolutionText(solver.toString(solution));
       } else {
-        setSolutionText('No solution found :(');
+        setSolutionFound(false);
       }
     }, 10)
   }
@@ -107,8 +109,19 @@ export const App: Component = () => {
               Solve
             </button>
           </div>
-          <div class={solutionText() ? styles.solution : styles.emptySolution}>
-            {solutionText()}
+          <div classList={{
+            [styles.solution]: true,
+            [styles.solutionNotFound]: !solutionFound(),
+            [styles.solutionHidden]: !solutionText()
+          }}>
+            <div class={styles.solutionHeader}>Solution</div>
+            <div class={styles.solutionBody}>
+              <Show when={solutionFound()} fallback={
+                <span>No solution found :(</span>
+              }>
+                {solutionText()}
+              </Show>
+            </div>
           </div>
         </main>
       </div>
