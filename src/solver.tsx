@@ -1,4 +1,7 @@
 export function solve(numbers: number[], target: number): Value | undefined {
+  // Randomise the starting input a little each time:
+  numbers.sort(() => Math.random() < 0.5 ? -1 : 1);
+
   let states: Value[][] = [numbers]
   let shortestSolutionOps = Infinity;
   let shortestSolution: Value | undefined = undefined;
@@ -55,7 +58,8 @@ export function toString(value: Value): string {
     if (typeof otherValue === 'number') {
       return false
     }
-    return otherValue.op !== value.op
+    return (otherValue.op === Op.Divide && value.op === Op.Divide)
+        || otherValue.op !== value.op
   }
 
   let op = value.op;
