@@ -55,22 +55,7 @@ export function toString(value: Value): string {
     if (typeof otherValue === 'number') {
       return false
     }
-
-    let otherOp = otherValue.op;
-    let thisOp = value.op;
-
-    if (prec(otherOp) === prec(thisOp)) {
-      return false
-    }
-    return true
-  }
-  function prec(op: Op) {
-    if (op == Op.Add || op == Op.Minus) {
-      return 3
-    } else if (op == Op.Divide) {
-      return 2
-    }
-    return 1
+    return otherValue.op !== value.op
   }
 
   let op = value.op;
