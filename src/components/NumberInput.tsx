@@ -45,7 +45,7 @@ export const NumberInput: Component<NumberInputProps> = (props) => {
   return (
       <input
         class={`${styles.input} ${props.class} ${isValid() ? '' : props.invalidClass}`}
-        value={props.value || ''}
+        value={props.value?.toString() || ''}
         onInput={onInput}
         onClick={onClick}
         type="number"

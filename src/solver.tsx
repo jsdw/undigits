@@ -66,6 +66,8 @@ export function toString(value: Value): string {
   }
   function prec(op: Op) {
     if (op == Op.Add || op == Op.Minus) {
+      return 3
+    } else if (op == Op.Divide) {
       return 2
     }
     return 1
