@@ -44,31 +44,24 @@ export function toString(value: Value): string {
     return value.toString()
   }
 
-  function rightNeedsBrackets(value: Value) {
-    return needsBrackets(value, (v) => v.right);
-  }
-  function leftNeedsBrackets(value: Value) {
-    return needsBrackets(value, (v) => v.left);
-  }
-  function needsBrackets(value: Value, k: (v: {left: Value, right: Value}) => Value) {
-    if (typeof value === 'number') {
-      return false
-    }
-    let otherValue = k(value);
-    if (typeof otherValue === 'number') {
-      return false
-    }
-    return (otherValue.op === Op.Divide && value.op === Op.Divide)
-        || otherValue.op !== value.op
-  }
-
   let op = value.op;
-  let leftS = leftNeedsBrackets(value)
-    ? "("+toString(value.left)+")"
-    : toString(value.left);
-  let rightS = rightNeedsBrackets(value)
-    ? "("+toString(value.right)+")"
-    : toString(value.right);
+
+  // If we are reading left to right we never need brackets on the
+  // left side, but for clarity let's add them if precedence of left op
+  // is lower
+  let leftS = typeof value.left === 'number' ? toString(value.left)
+    : (value.left.op === Op.Add || value.left.op === Op.Minus)
+    && (op === Op.Multiply || op === Op.Divide) ? "("+toString(value.left)+")"
+    : toString(value.left)
+
+  // By default any ops on the right hand side need brackets.
+  // In some cases though we can avoid them.
+  let rightS
+    = typeof value.right === 'number'
+    || (op == Op.Add && value.right.op == Op.Add)
+    || (op == Op.Add && value.right.op == Op.Minus)
+    || (op == Op.Multiply && value.right.op == Op.Multiply) ? toString(value.right)
+    : "("+toString(value.right)+")";
 
   return leftS + " " + op + " " + rightS;
 }
